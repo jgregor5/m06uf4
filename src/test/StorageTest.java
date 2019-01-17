@@ -22,27 +22,27 @@ public class StorageTest {
     
     public static void loadAndDelete() {
         
-        ComponentManager manager = ComponentManager.getInstance();
+        ComponentManager mgr = ComponentManager.getInstance();
         
         JSONObject command = new JSONObject().
                 put("command", "storage.load").
                 put("key", "test.counter");
         
-        JSONObject result = manager.execute(command);
+        JSONObject result = mgr.execute(command);
         LOGGER.log(Level.INFO, "load result:{0}", result.toString(4));
         
         command = new JSONObject().
                 put("command", "storage.delete").
                 put("key", "test.counter");
         
-        result = manager.execute(command);
+        result = mgr.execute(command);
         LOGGER.log(Level.INFO, "delete result:{0}", result.toString(4));
         
     }
     
     public static void createAndIncrement() {
         
-        ComponentManager manager = ComponentManager.getInstance();
+        ComponentManager mgr = ComponentManager.getInstance();
         
         JSONObject initialData = new JSONObject().put("counter", 0);
         
@@ -51,7 +51,7 @@ public class StorageTest {
                 put("key", "test.counter").
                 put("data", initialData);
         
-        JSONObject result = manager.execute(command);
+        JSONObject result = mgr.execute(command);
         LOGGER.log(Level.INFO, "loadorsave result:{0}", result.toString(4));
         
         if (result.getBoolean("success")) {
@@ -63,7 +63,7 @@ public class StorageTest {
                     put("key", "test.counter").
                     put("data", data);
             
-            result = manager.execute(command);
+            result = mgr.execute(command);
             LOGGER.log(Level.INFO, "save result:{0}", result.toString(4));
         }
     }
