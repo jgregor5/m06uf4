@@ -28,15 +28,18 @@ public class StorageTest {
                 put("command", "storage.load").
                 put("key", "test.counter");
         
+        
+        LOGGER.log(Level.INFO, "query:{0}", command.toString(4));
         JSONObject result = mgr.execute(command);
-        LOGGER.log(Level.INFO, "load result:{0}", result.toString(4));
+        LOGGER.log(Level.INFO, "result:{0}", result.toString(4));
         
         command = new JSONObject().
                 put("command", "storage.delete").
                 put("key", "test.counter");
         
+        LOGGER.log(Level.INFO, "query:{0}", command.toString(4));
         result = mgr.execute(command);
-        LOGGER.log(Level.INFO, "delete result:{0}", result.toString(4));
+        LOGGER.log(Level.INFO, "result:{0}", result.toString(4));
         
     }
     
@@ -51,8 +54,9 @@ public class StorageTest {
                 put("key", "test.counter").
                 put("data", initialData);
         
+        LOGGER.log(Level.INFO, "query:{0}", command.toString(4));
         JSONObject result = mgr.execute(command);
-        LOGGER.log(Level.INFO, "loadorsave result:{0}", result.toString(4));
+        LOGGER.log(Level.INFO, "result:{0}", result.toString(4));
         
         if (result.getBoolean("success")) {
             JSONObject data = result.getJSONObject("data");
@@ -63,8 +67,9 @@ public class StorageTest {
                     put("key", "test.counter").
                     put("data", data);
             
+            LOGGER.log(Level.INFO, "query:{0}", command.toString(4));
             result = mgr.execute(command);
-            LOGGER.log(Level.INFO, "save result:{0}", result.toString(4));
+            LOGGER.log(Level.INFO, "result:{0}", result.toString(4));
         }
     }
 }

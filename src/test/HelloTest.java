@@ -22,7 +22,7 @@ public class HelloTest {
                 put("name", "Julian");
         
         LOGGER.log(Level.INFO, "query:{0}", command.toString(4));        
-        JSONObject response = mgr.execute(command);        
-        LOGGER.log(Level.INFO, "result:{0}", response.toString(4));
+        JSONObject result = mgr.execute(command);        
+        LOGGER.log(Level.INFO, "result:{0}", result.toString(4));
     }
 }
