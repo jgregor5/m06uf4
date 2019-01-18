@@ -34,6 +34,7 @@ public class ChatTest implements IEventListener {
         
         Scanner sc = new Scanner(System.in);
         while (true) {
+            System.out.print("> ");
             String nextLine = sc.nextLine();
             if (nextLine.isEmpty()) {
                break;
