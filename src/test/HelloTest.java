@@ -17,6 +17,8 @@ public class HelloTest {
         
         ComponentManager mgr = ComponentManager.getInstance();
         
+        LOGGER.log(Level.INFO, mgr.getComponentsInfo().toString(4));
+        
         JSONObject command = new JSONObject().
                 put("command", "hello").
                 put("name", "Julian");
