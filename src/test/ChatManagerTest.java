@@ -28,7 +28,7 @@ public class ChatManagerTest implements IEventListener {
     
     public void test() {
         
-        try (IManager mgr = ManagerFactory.getManager("localhost")) {
+        try (IManager mgr = ManagerFactory.getManager("146.255.96.104")) {
             
             mgr.registerListener(this);
             
