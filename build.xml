@@ -76,13 +76,15 @@
     <target name="component" depends="compile">
         
         <manifest file="MANIFEST.MF">
-            <attribute name="Implementation-Version" value="${version}"/> 
-            <attribute name="Built-By" value="${builder}"/>
+            <section name="${package}">
+                <attribute name="Implementation-Version" value="${version}"/> 
+                <attribute name="Built-By" value="${builder}"/>
+            </section>
         </manifest>
         
         <jar destfile="dist/${jarname}-${version}.jar" manifest="MANIFEST.MF">
             <fileset dir="build/classes">
-                <include name="implement/**"/>
+                <include name="${package}/**"/>
                 <include name="META-INF/services/commander.IComponent"/>
             </fileset>
         </jar>
