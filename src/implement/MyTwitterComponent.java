@@ -40,7 +40,8 @@ public class MyTwitterComponent implements IComponent,
         sendEvent(event);
         
         return new JSONObject().
-                put("message", "hello, " + json.get("name") + "!");
+                put("success", true).
+                put("message", "command executed!");
     }
 
     @Override
