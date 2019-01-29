@@ -3,6 +3,8 @@ package implement;
 import commander.IComponent;
 import commander.IEventListener;
 import commander.IEventSource;
+import commander.IInitManager;
+import commander.IManager;
 import java.util.HashSet;
 import java.util.Set;
 import org.json.JSONObject;
@@ -12,12 +14,18 @@ import org.json.JSONObject;
  * @author julian
  */
 public class MyTwitterComponent implements IComponent, 
-        IEventListener, IEventSource {
+        IEventListener, IEventSource, IInitManager {
     
     private final Set<IEventListener> listeners;
+    private IManager mgr;
     
     public MyTwitterComponent() {
         this.listeners = new HashSet<>();
+    }
+    
+    @Override
+    public void setManager(IManager mgr) {
+        this.mgr = mgr;
     }
 
     @Override
@@ -38,6 +46,8 @@ public class MyTwitterComponent implements IComponent,
                 put("type", "executed");
         
         sendEvent(event);
+        
+        // you could use this.mgr to call another component
         
         return new JSONObject().
                 put("success", true).
@@ -67,4 +77,5 @@ public class MyTwitterComponent implements IComponent,
             listener.handleEvent(jo);
         }
     }
+
 }
