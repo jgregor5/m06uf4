@@ -1,3 +1,4 @@
+
 package test;
 
 import java.util.Calendar;
@@ -9,29 +10,72 @@ import java.util.TimerTask;
  *
  * @author julian
  */
-public class ScheduleTest {
+public class ScheduleTest implements AutoCloseable {
     
-    private static int count = 0;
-    private static Timer timer;
+    private Timer timer;
+    
+    public ScheduleTest() {
+        this.timer = new Timer();
+    }
+    
+    @Override
+    public void close() {
+        this.timer.cancel();
+    }
+            
+    private void addTaskEvery5Seconds() {
+        this.timer.schedule(new MyTimerTaskOne(), 0, 5000);
+    }
+    
+    private void addTaskIn7Seconds() {
+        this.timer.schedule(new MyTimerTaskTwo(), 7000);
+    }
+        
+    private void addTaskAt(int hour, int min, int sec) {        
+        this.timer.schedule(new MyTimerTaskThree(), createDate(hour, min, sec));
+    }
     
     public static void main(String[] args) {
-
-        timer = new Timer();
-        timer.schedule(new MyTimerTask("message 1"), createDate(17, 39, 0));
-        timer.schedule(new MyTimerTask("message 2"), createDate(17, 39, 10));
-        timer.schedule(new MyTimerTask("message 3"), createDate(17, 39, 20));
         
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-        }
+        ScheduleTest test = new ScheduleTest();
+
+        test.addTaskEvery5Seconds();        
+        test.addTaskIn7Seconds();
+        test.addTaskAt(9, 25, 30);
+        
+        sleep(60000); // wait 60 seconds before cancelling the timer
+        
+        test.close();
     }
 
-    public static void writeMessage(String message) {
-        System.out.println(new Date() + ": " + message);
-        if (--count == 0) {
-            System.out.println("done!");
-            timer.cancel();
+    // SOME TASKS
+    
+    public class MyTimerTaskOne extends TimerTask {
+        @Override
+        public void run() {
+            System.out.println("ONE");
+        }        
+    }
+
+    public class MyTimerTaskTwo extends TimerTask {
+        @Override
+        public void run() {
+            System.out.println("TWO");
+        }        
+    }
+
+    public class MyTimerTaskThree extends TimerTask {
+        @Override
+        public void run() {
+            System.out.println("THREE");
+        }        
+    }
+    
+    private static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
         }
     }
     
@@ -43,19 +87,5 @@ public class ScheduleTest {
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
-    
-    public static class MyTimerTask extends TimerTask {
 
-        private final String message;
-
-        public MyTimerTask(String message) {
-            ScheduleTest.count ++;
-            this.message = message;
-        }
-        
-        @Override
-        public void run() {
-            writeMessage(message);
-        }        
-    }
 }
