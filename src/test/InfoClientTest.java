@@ -16,7 +16,7 @@ public class InfoClientTest {
     
     public static void main(String[] args) {
         
-        CommanderClient commander = new CommanderClient("localhost");
+        CommanderClient commander = new CommanderClient("146.255.96.104");
         commander.connect(9000);
         
         JSONObject response = commander.execute(new JSONObject().put("command", "info.components"));  

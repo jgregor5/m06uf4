@@ -16,7 +16,7 @@ public class MultClientTest {
     
     public static void main(String[] args) {
         
-        CommanderClient commander = new CommanderClient("localhost");
+        CommanderClient commander = new CommanderClient("146.255.96.104");
         commander.connect(9000);
         
         JSONObject command = new JSONObject().

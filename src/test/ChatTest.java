@@ -27,7 +27,7 @@ public class ChatTest implements IEventListener {
     
     public void test() {
         
-        CommanderClient commander = new CommanderClient("localhost");
+        CommanderClient commander = new CommanderClient("146.255.96.104");
         commander.registerListener(this);
         commander.connect(9000);
         commander.listen(9001);
