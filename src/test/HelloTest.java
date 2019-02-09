@@ -15,16 +15,16 @@ public class HelloTest {
     
     public static void main(String[] args) {
         
-        ComponentManager mgr = ComponentManager.getInstance();
-        
-        LOGGER.log(Level.INFO, mgr.getComponentsInfo().toString(4));
-        
-        JSONObject command = new JSONObject().
-                put("command", "hello").
-                put("name", "Julian");
-        
-        LOGGER.log(Level.INFO, "query:{0}", command.toString(4));        
-        JSONObject result = mgr.execute(command);        
-        LOGGER.log(Level.INFO, "result:{0}", result.toString(4));
+        try (ComponentManager mgr = ComponentManager.getInstance()) {
+            LOGGER.log(Level.INFO, mgr.getComponentsInfo().toString(4));
+
+            JSONObject command = new JSONObject().
+                    put("command", "hello").
+                    put("name", "Julian");
+
+            LOGGER.log(Level.INFO, "query:{0}", command.toString(4));        
+            JSONObject result = mgr.execute(command);        
+            LOGGER.log(Level.INFO, "result:{0}", result.toString(4));
+        }
     }
 }

@@ -16,13 +16,13 @@ public class StorageTest {
     
     public static void main(String[] args) {
         
-        createAndIncrement();
-        loadAndDelete();
+        try (ComponentManager mgr = ComponentManager.getInstance()) {
+            createAndIncrement(mgr);
+            loadAndDelete(mgr);
+        }
     }
     
-    public static void loadAndDelete() {
-        
-        ComponentManager mgr = ComponentManager.getInstance();
+    public static void loadAndDelete(ComponentManager mgr) {
         
         JSONObject command = new JSONObject().
                 put("command", "storage.load").
@@ -43,9 +43,7 @@ public class StorageTest {
         
     }
     
-    public static void createAndIncrement() {
-        
-        ComponentManager mgr = ComponentManager.getInstance();
+    public static void createAndIncrement(ComponentManager mgr) {
         
         JSONObject initialData = new JSONObject().put("counter", 0);
         
